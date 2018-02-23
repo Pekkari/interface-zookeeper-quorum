@@ -196,6 +196,12 @@ def check_cluster_departed(zkpeer, zkpeer_departed):
     check_cluster(zkpeer)
 
 
+@when('zookeeper.started', 'zkpeer.changed')
+def refresh_node_configs(zkpeer):
+    zkpeer.check_cluster()
+    zkpeer.dismiss_changed()
+
+
 @when('leadership.changed.restart_queue', 'zkpeer.joined')
 def restart_for_quorum(zkpeer):
     '''
